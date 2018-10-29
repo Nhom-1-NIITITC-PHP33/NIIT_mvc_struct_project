@@ -1,5 +1,5 @@
 <?php
-if ($_POST) {
+if (isset($_POST["submit"])) {
     $servername = "localhost";
     $dbname = "d3t";
     $db_username = "root";
@@ -7,6 +7,7 @@ if ($_POST) {
 //check if email has been used when user type in email (ajax)
 //validate server side
 //encryte password
+//redirect to login
     try {
 
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $db_username, $db_password);
@@ -136,7 +137,7 @@ if ($_POST) {
                             <label for="repassword" class="text-primary login_center ">Nhập lại mật khẩu</label>
                             <span id="repassword-alert"></span>
                             <input type="password" class="form-control" id="repassword" tabindex=3><br><br>
-                            <button type="submit" class="btn btn-primary btn-block" tabindex=8>Đăng ký</button>
+                            <button type="submit" class="btn btn-primary btn-block" tabindex=8 name="submit">Đăng ký</button>
                         </div>
                         <div class="col-sm-6">
                             <h3>THÔNG TIN LIÊN HỆ</h3>

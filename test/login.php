@@ -85,7 +85,7 @@ if (isset($_POST["submit"])) {
             <div class="row">
                 <div class="col-sm-3"></div>
                 <div class="col-sm-6 login_div">
-                    <form action="login1.php" method="post" onsubmit="return validateForm_login()">
+                    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" onsubmit="return validateForm_login()">
                         <div class="form-group">
                             <div>
                                 <h3>THÔNG TIN TÀI KHOẢN</h3>
