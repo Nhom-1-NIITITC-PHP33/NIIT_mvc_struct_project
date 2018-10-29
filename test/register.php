@@ -119,6 +119,21 @@ if (isset($_POST["submit"])) {
                     return false;
                 }
             }
+            function showHint(str) {
+                if (str.length == 0) {
+                    document.getElementById("txtHint").innerHTML = "";
+                    return;
+                } else {
+                    var xmlhttp = new XMLHttpRequest();
+                    xmlhttp.onreadystatechange = function () {
+                        if (this.readyState == 4 && this.status == 200) {
+                            document.getElementById("email-alert").innerHTML = this.responseText;
+                        }
+                    };
+                    xmlhttp.open("GET", "gethint.php?q=" + str, true);
+                    xmlhttp.send();
+                };
+            }
         </script>
     </head>
     <body>
@@ -128,16 +143,16 @@ if (isset($_POST["submit"])) {
                     <div class="row">
                         <div class="col-sm-6 ">
                             <h3>THÔNG TIN TÀI KHOẢN</h3>
-                            <label for="email" class="text-primary login_center ">Email đăng nhập</label>
+                            <label for="email" class="text-primary login_center">Email đăng nhập</label>
                             <span id="email-alert"></span>
-                            <input type="text" class="form-control" id="email" name="email" tabindex=1><br>
+                            <input type="text" class="form-control" id="email" name="email" tabindex=1 onfocusout="showHint(this.value)"><br>
                             <label for="password" class="text-primary login_center ">Mật khẩu</label>
                             <span id="password-alert"></span>
                             <input type="password" class="form-control" id="password" name="password" tabindex=2><br>
                             <label for="repassword" class="text-primary login_center ">Nhập lại mật khẩu</label>
                             <span id="repassword-alert"></span>
                             <input type="password" class="form-control" id="repassword" tabindex=3><br><br>
-                            <button type="submit" class="btn btn-primary btn-block" tabindex=8 name="submit">Đăng ký</button>
+                            <button type="submit" class="btn btn-primary btn-block" tabindex=8 name="submit" >Đăng ký</button>
                         </div>
                         <div class="col-sm-6">
                             <h3>THÔNG TIN LIÊN HỆ</h3>
