@@ -2,14 +2,14 @@
     padding: 0px;
     margin: 0px;
     font-size: 16px;
-    
+
 }
 /*Layout style*/
 /*--- HEADER ---*/
 #topheader{
     background-color: #3366cc;   
     line-height: 30px;  
-   
+
 }
 .list{
     text-align: center;
@@ -18,7 +18,7 @@
 }
 .list>a{
     text-decoration: none;
-     color: #ffffff; 
+    color: #ffffff; 
 }
 #header{
     vertical-align: baseline;
@@ -309,7 +309,7 @@ nav{
 .table-cart{
     margin-top:30px;  
     text-align: center; 
-    
+
 }
 .title-cart{
     box-shadow: 1px 1px red;
@@ -320,7 +320,7 @@ nav{
 }
 .info-cart{
     margin-top:30px;
-   
+
 }
 .info-client{
     color: blue;
@@ -430,7 +430,7 @@ tr.tr-0, tr.tr-1 {
     padding-bottom: 10px;
     margin-bottom: 15px;
     margin-top: 10px;
-  
+
 }
 .price_current {
     overflow: hidden;
@@ -456,7 +456,7 @@ tr.tr-0, tr.tr-1 {
     box-sizing: border-box;
 }
 .quantity{
-    
+
 }
 .QuantityInput_3yLO {
     display: flex;
@@ -540,13 +540,13 @@ input, button, textarea, select, optgroup, option {
 }
 .panel-content {
     padding: 1.2rem;
-    
+
 }
 .panel-content a:hover{
     color: #3e8f3e;
 }
 .login_center{
-     display: inline;
+    display: inline;
 }
 .login_div{
     padding : 30px;
@@ -555,11 +555,11 @@ input, button, textarea, select, optgroup, option {
     border: 1px solid hsl(210, 100%, 80%);
 }
 .text_center{
-    //text-align: center;
+    /*text-align: center*/
 }
-span{
-                color: red; 
-                float: right
-            }
+.login_div span{
+    color: red; 
+    float: right
+}
 
 /*detail*/

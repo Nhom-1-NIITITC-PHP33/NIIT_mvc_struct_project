@@ -12,6 +12,9 @@ class Default_Controllers_User extends Libs_Controller {
         $this->view->render('user/register');
     }
     
+    public function showHint() {
+        echo 'hello';
+    }
     public function test_input($data) {
             $data = trim($data);
             $data = stripslashes($data);
@@ -25,6 +28,7 @@ class Default_Controllers_User extends Libs_Controller {
         $address = $this->test_input($_POST['address']);
         $fullName = $this->test_input($_POST['name']);
         $birthDate = $this->test_input($_POST['date']);
+        $gender = $this->test_input($_POST['gender']);
         
         $database = new Libs_Model;
         $db = $database->getConnection();
@@ -35,34 +39,40 @@ class Default_Controllers_User extends Libs_Controller {
         $user->address = $address;
         $user->fullName = $fullName;
         $user->birthDate = $birthDate;
+        $user->gender = $gender;
         $user->addUser();
-        //echo "<script>window.location.href='".URL_BASE."user/login';</script>";
+        echo "<script>window.location.href='".URL_BASE."user/login';</script>";
     }
 
         public function  login(){
         $this->view->render('user/login');
     }
     
-    public function proccess(){
-        $email = $_POST['email'];
-        $pass = $_POST['pass'];
+    public function loginProccess(){
+        $email = $this->test_input($_POST['email']);
+        $password = $this->test_input($_POST['password']);
         
         $database = new Libs_Model;
         $db = $database->getConnection();
         $user = new Default_Models_User($db);
         $user->email = $email;
-        $user->password = $pass;
+        $user->password = $password;
         
         if($user->checkUser()==true){
             //Caaps session
             $_SESSION['logged_in'] = true;
-            $_SESSION['user'] = $email;
+            $_SESSION['email'] = $email;
             //Dieu huong
             echo "<script>window.location.href='".URL_BASE."';</script>";
         }else{
             //redirect ve login
             echo "<script>window.location.href='".URL_BASE."user/login';</script>";
         }
+    }
+    
+    public function logoutProcess(){
+        session_unset();
+        echo "<script>window.location.href='".URL_BASE."';</script>";
     }
 
    

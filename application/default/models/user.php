@@ -3,7 +3,7 @@
 class Default_Models_User {
 
     public $id;
-    public $username;
+    public $gender;
     public $password;
     public $email;
     public $phone;
@@ -18,23 +18,9 @@ class Default_Models_User {
         $this->con = $db;
     }
     
-    public function register() {
-        $query = "INSERT INTO `customers`(`id`, `username`, `password`, `email`, `phone`, `address`, `status`, `fullName`, `birthDate`, `avarta`) "
-                . "VALUES ([value-1],[value-2],[value-3],[value-4],[value-5],[value-6],[value-7],[value-8],[value-9],[value-10])";
-        $stmt = $this->con->prepare($query);
-        $stmt->execute();
-
-        $rowCount = $stmt->rowCount();
-        if ($rowCount > 0) {
-            return $stmt;
-        } else {
-            return null;
-        }
-    }
-    
     public function addUser() {
-        $query = "INSERT INTO `customers` ( `email`, `password`, `phone`, `address`,  `fullName`, `birthDate`) "
-                    . "VALUES  ( :email, :password, :phone, :address, :fullName, :birthDate);";
+        $query = "INSERT INTO `customers` ( `email`, `password`, `phone`, `address`,  `fullName`, `birthDate`, `gender`) "
+                    . "VALUES  ( :email, :password, :phone, :address, :fullName, :birthDate, :gender);";
         $stmt = $this->con->prepare($query);
         $stmt->bindParam(':email', $this->email);
         $stmt->bindParam(':password', $this->password);
@@ -42,6 +28,7 @@ class Default_Models_User {
         $stmt->bindParam(':address', $this->address);
         $stmt->bindParam(':fullName', $this->fullName);
         $stmt->bindParam(':birthDate', $this->birthDate);
+        $stmt->bindParam(':gender', $this->gender);
         $stmt->execute();
     }
     

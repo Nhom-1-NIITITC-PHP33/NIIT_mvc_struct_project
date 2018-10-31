@@ -70,25 +70,31 @@ $(document).ready(function () {
 });
 
 function validateForm_login() {
-    var usr = document.getElementById("usr").value;
-    var pwd = document.getElementById("pwd").value;
-    var msg = "";
-    if (usr === "") {
-        document.getElementById("usr-alert").innerHTML = "Tên tài khoản không được để trống\n"
+    var email = document.getElementById("email").value;
+    var password = document.getElementById("password").value;
+    var regex_email = /^[A-Z0-9a-z._%+-]+@[a-zA-Z0-9.-]+\.[A-Za-z]{2,4}$/g;
+    var error = false;
+    if (email === "") {
+        document.getElementById("email-alert").innerHTML = "Email không được để trống\n";
+        error = true;
+    } else if (!regex_email.test(email)) {
+        document.getElementById("email-alert").innerHTML = "Email không hợp lệ\n";
+        error = true;
     } else {
-        document.getElementById("usr-alert").innerHTML = ""
+        document.getElementById("email-alert").innerHTML = ""
     }
-    if (pwd === "") {
-        document.getElementById("pwd-alert").innerHTML = "Mật khẩu không được để trống\n"
+    if (password === "") {
+        document.getElementById("password-alert").innerHTML = "Mật khẩu không được để trống\n";
+        error = true;
     } else {
-        document.getElementById("pwd-alert").innerHTML = ""
+        document.getElementById("password-alert").innerHTML = ""
     }
-    if (usr === "" || pwd === "") {
+    if (error) {
         return false;
     }
 }
 function validateForm_register() {
-    var error = 0;
+    var error = false;
     var password = document.getElementById("password").value;
     var repassword = document.getElementById("repassword").value;
 
@@ -102,53 +108,63 @@ function validateForm_register() {
 
     if (password === "") {
         document.getElementById("password-alert").innerHTML = "Mật khẩu không được để trống\n";
-        error = 1;
+        error = true;
     } else {
         document.getElementById("password-alert").innerHTML = ""
     }
     if (repassword !== password) {
         document.getElementById("repassword-alert").innerHTML = "Mật khẩu không đúng\n";
-        error = 1;
+        error = true;
     } else {
         document.getElementById("repassword-alert").innerHTML = ""
     }
     if (name === "") {
         document.getElementById("name-alert").innerHTML = "Họ tên của bạn không được để trống\n";
-        error = 1;
+        error = true;
     } else {
         document.getElementById("name-alert").innerHTML = ""
     }
     if (phone === "") {
         document.getElementById("phone-alert").innerHTML = "Số điện thoại không được để trống\n";
-        error = 1;
+        error = true;
     } else {
         document.getElementById("phone-alert").innerHTML = ""
     }
     if (email === "") {
         document.getElementById("email-alert").innerHTML = "Email không được để trống\n";
-        error = 1;
+        error = true;
     } else if (!regex_email.test(email)) {
         document.getElementById("email-alert").innerHTML = "Email không hợp lệ\n";
-        error = 1;
+        error = true;
     } else {
         document.getElementById("email-alert").innerHTML = ""
     }
     if (date === "") {
         document.getElementById("date-alert").innerHTML = "Ngày sinh không được để trống\n";
-        error = 1;
+        error = true;
     } else {
         document.getElementById("date-alert").innerHTML = ""
     }
     if (address === "") {
         document.getElementById("address-alert").innerHTML = "Địa chỉ không được để trống\n";
-        error = 1;
+        error = true;
     } else {
         document.getElementById("address-alert").innerHTML = ""
     }
-    if (error !== 0) {
+    if (error) {
         return false;
     }
 }
+$(document).ready(function () {
+                $("#email").focusout(function () {
+                    alert('hello');
+                    /*var email = document.getElementById("email").value;
+                    $("#email-alert").load("gethint.php?q=" + email, function (responseText, statusTxt, xhr) {
+                        if (statusTxt === "Success")
+                            $("#email-alert").html($("#responseText"));//document.getElementById("email-alert").innerHTML = responseText;
+                    });*/
+                });
+            });
 
 
 
