@@ -74,14 +74,14 @@ function validateForm_login() {
     var pwd = document.getElementById("pwd").value;
     var msg = "";
     if (usr === "") {
-        document.getElementById("usr-alert").innerHTML  = "Tên tài khoản không được để trống\n"
+        document.getElementById("usr-alert").innerHTML = "Tên tài khoản không được để trống\n"
     } else {
-        document.getElementById("usr-alert").innerHTML  = ""
+        document.getElementById("usr-alert").innerHTML = ""
     }
     if (pwd === "") {
-        document.getElementById("pwd-alert").innerHTML  = "Mật khẩu không được để trống\n"
+        document.getElementById("pwd-alert").innerHTML = "Mật khẩu không được để trống\n"
     } else {
-        document.getElementById("pwd-alert").innerHTML  = ""
+        document.getElementById("pwd-alert").innerHTML = ""
     }
     if (usr === "" || pwd === "") {
         return false;
@@ -89,74 +89,77 @@ function validateForm_login() {
 }
 function validateForm_register() {
     var error = 0;
-    var usr = document.getElementById("usr").value;
-    var pwd = document.getElementById("pwd").value;
-    var repwd = document.getElementById("repwd").value;
+    var password = document.getElementById("password").value;
+    var repassword = document.getElementById("repassword").value;
 
     var name = document.getElementById("name").value;
     var phone = document.getElementById("phone").value;
     var email = document.getElementById("email").value;
+    var date = document.getElementById("date").value;
     var address = document.getElementById("address").value;
     var regex_email = /^[A-Z0-9a-z._%+-]+@[a-zA-Z0-9.-]+\.[A-Za-z]{2,4}$/g;
 
-    if (usr === "") {
-        document.getElementById("usr-alert").innerHTML  = "Tên tài khoản không được để trống\n";
+
+    if (password === "") {
+        document.getElementById("password-alert").innerHTML = "Mật khẩu không được để trống\n";
         error = 1;
     } else {
-        document.getElementById("usr-alert").innerHTML  = ""
+        document.getElementById("password-alert").innerHTML = ""
     }
-    if (pwd === "") {
-        document.getElementById("pwd-alert").innerHTML  = "Mật khẩu không được để trống\n";
+    if (repassword !== password) {
+        document.getElementById("repassword-alert").innerHTML = "Mật khẩu không đúng\n";
         error = 1;
     } else {
-        document.getElementById("pwd-alert").innerHTML  = ""
-    }
-    if (repwd !== pwd) {
-        document.getElementById("repwd-alert").innerHTML  = "Mật khẩu không đúng\n";
-        error = 1;
-    } else {
-        document.getElementById("repwd-alert").innerHTML  = ""
+        document.getElementById("repassword-alert").innerHTML = ""
     }
     if (name === "") {
-        document.getElementById("name-alert").innerHTML  = "Họ tên của bạn không được để trống\n";
+        document.getElementById("name-alert").innerHTML = "Họ tên của bạn không được để trống\n";
         error = 1;
     } else {
-        document.getElementById("name-alert").innerHTML  = ""
+        document.getElementById("name-alert").innerHTML = ""
     }
     if (phone === "") {
-        document.getElementById("phone-alert").innerHTML  = "Số điện thoại không được để trống\n";
+        document.getElementById("phone-alert").innerHTML = "Số điện thoại không được để trống\n";
         error = 1;
     } else {
-        document.getElementById("phone-alert").innerHTML  = ""
+        document.getElementById("phone-alert").innerHTML = ""
     }
     if (email === "") {
-        document.getElementById("email-alert").innerHTML  = "Email không được để trống\n";
+        document.getElementById("email-alert").innerHTML = "Email không được để trống\n";
         error = 1;
     } else if (!regex_email.test(email)) {
-        document.getElementById("email-alert").innerHTML  = "Email không hợp lệ\n";
+        document.getElementById("email-alert").innerHTML = "Email không hợp lệ\n";
         error = 1;
     } else {
-        document.getElementById("email-alert").innerHTML  = ""
+        document.getElementById("email-alert").innerHTML = ""
+    }
+    if (date === "") {
+        document.getElementById("date-alert").innerHTML = "Ngày sinh không được để trống\n";
+        error = 1;
+    } else {
+        document.getElementById("date-alert").innerHTML = ""
     }
     if (address === "") {
-        document.getElementById("address-alert").innerHTML  = "Địa chỉ không được để trống\n";
+        document.getElementById("address-alert").innerHTML = "Địa chỉ không được để trống\n";
         error = 1;
     } else {
-        document.getElementById("address-alert").innerHTML  = ""
+        document.getElementById("address-alert").innerHTML = ""
     }
-    if (error === 1) {
+    if (error !== 0) {
         return false;
     }
 }
 
-function showCate() {
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById("cbCategory").innerHTML = this.responseText;
-                }
-            };
 
-            xmlhttp.open("GET", "getcate.php", true); //here
-            xmlhttp.send();
+
+function showCate() {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("cbCategory").innerHTML = this.responseText;
         }
+    };
+
+    xmlhttp.open("GET", "getcate.php", true); //here
+    xmlhttp.send();
+}

@@ -9,12 +9,21 @@
                 <a href="<?php echo URL_BASE . 'care/index' ?>">
                     <span class="fa fa-question-circle"></span>Trợ giúp</a>
             </div>
+            <?php 
+                if(isset($_SESSION['logged_in']) && $_SESSION['logged_in']==true){
+                    echo "Xin chao:". $_SESSION['user'];
+                    
+                }else{
+            ?>
             <div class="col-sm-3 list">
                 <a href="<?php echo URL_BASE . 'user/register' ?>">Đăng ký</a>
             </div>
             <div class="col-sm-3 list">
                 <a href="<?php echo URL_BASE . 'user/login' ?>">Đăng nhập</a>
             </div>
+            <?php
+                }
+            ?>
         </div>
     </div>
 </div>

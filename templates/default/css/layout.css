@@ -557,5 +557,9 @@ input, button, textarea, select, optgroup, option {
 .text_center{
     //text-align: center;
 }
+span{
+                color: red; 
+                float: right
+            }
 
 /*detail*/
