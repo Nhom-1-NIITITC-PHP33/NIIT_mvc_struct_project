@@ -23,6 +23,20 @@ class Default_Controllers_User extends Libs_Controller {
         return $data;
     }
 
+    public function checkExistEmail(){
+        $email = $this->test_input($_REQUEST["q"]);
+        $hint = "";
+        $database = new Libs_Model;
+            $db = $database->getConnection();
+            $user = new Default_Models_User($db);
+            $user->email = $email;
+            if ($user->checkEmail() == FALSE){
+                echo ('noExist');
+            }else {
+                echo ('');
+            }
+    }
+
     public function registerProcess() {
         $email = $this->test_input($_POST['email']);
         $password = $this->test_input($_POST['password']);

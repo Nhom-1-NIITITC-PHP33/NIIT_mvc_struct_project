@@ -1,3 +1,89 @@
+<script>
+function validateForm_register() {
+    var error = false;
+    var password = document.getElementById("password").value;
+    var repassword = document.getElementById("repassword").value;
+
+    var name = document.getElementById("name").value;
+    var phone = document.getElementById("phone").value;
+    var email = document.getElementById("email").value;
+    var date = document.getElementById("date").value;
+    var address = document.getElementById("address").value;
+    var regex_email = /^[A-Z0-9a-z._%+-]+@[a-zA-Z0-9.-]+\.[A-Za-z]{2,4}$/g;
+
+
+    if (password === "") {
+        document.getElementById("password-alert").innerHTML = "Mật khẩu không được để trống\n";
+        error = true;
+    } else {
+        document.getElementById("password-alert").innerHTML = ""
+    }
+    if (repassword !== password) {
+        document.getElementById("repassword-alert").innerHTML = "Mật khẩu không đúng\n";
+        error = true;
+    } else {
+        document.getElementById("repassword-alert").innerHTML = ""
+    }
+    if (name === "") {
+        document.getElementById("name-alert").innerHTML = "Họ tên của bạn không được để trống\n";
+        error = true;
+    } else {
+        document.getElementById("name-alert").innerHTML = ""
+    }
+    if (phone === "") {
+        document.getElementById("phone-alert").innerHTML = "Số điện thoại không được để trống\n";
+        error = true;
+    } else {
+        document.getElementById("phone-alert").innerHTML = ""
+    }
+    if (email === "") {
+        document.getElementById("email-alert").innerHTML = "Email không được để trống\n";
+        error = true;
+    } else if (!regex_email.test(email)) {
+        document.getElementById("email-alert").innerHTML = "Email không hợp lệ\n";
+        error = true;
+    } else {
+        document.getElementById("email-alert").innerHTML = ""
+    }
+    if (date === "") {
+        document.getElementById("date-alert").innerHTML = "Ngày sinh không được để trống\n";
+        error = true;
+    } else {
+        document.getElementById("date-alert").innerHTML = ""
+    }
+    if (address === "") {
+        document.getElementById("address-alert").innerHTML = "Địa chỉ không được để trống\n";
+        error = true;
+    } else {
+        //document.getElementById("address-alert").innerHTML = ""
+    }
+
+    if (error) {
+        return false;
+    }else{
+        return isEmailAvailable();
+    }
+}
+
+function isEmailAvailable(){
+    //gửi dữ lieu bang ajax
+    var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function () {
+                    if (this.readyState === 4 && this.status === 200) {
+                        if (responseText === 'noExist'){
+                            document.getElementById("email-alert").innerHTML = '';
+                            return true;
+                        }else{
+                            document.getElementById("email-alert").innerHTML = 'Email này đã sử dụng';
+                            return false;
+                        }
+                    }
+                };
+                xmlhttp.open("GET", "<?php echo URL_BASE;?>user/checkExistEmail/?q=" + email, true);
+                xmlhttp.send();
+}
+
+</script>
 
 <div class="container text_center">
     <form  action="<?php echo URL_BASE ?>user/registerProcess" method="post" enctype="multipart/form-data" onsubmit="return validateForm_register()"> 
@@ -5,7 +91,7 @@
             <div class="row">
                 <div class="col-sm-6 ">
                     <h3>THÔNG TIN TÀI KHOẢN</h3>
-                    <label for="email" class="text-primary login_center">Email đăng nhập</label>
+                    <label for="email" class="text-primary login_center" onfocusout=isEmailAvailable()>Email đăng nhập</label>
                     <span id="email-alert"></span>
                     <input type="text" class="form-control" id="email" name="email" tabindex=1 ><br> <!--onfocusout="<?php echo URL_BASE ?>user/showHint"-->
 
