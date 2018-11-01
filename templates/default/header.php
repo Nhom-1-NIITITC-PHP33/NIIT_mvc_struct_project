@@ -9,12 +9,27 @@
                 <a href="<?php echo URL_BASE . 'care/index' ?>">
                     <span class="fa fa-question-circle"></span>Trợ giúp</a>
             </div>
-            <div class="col-sm-3 list">
-                <a href="<?php echo URL_BASE . 'user/register' ?>">Đăng ký</a>
-            </div>
-            <div class="col-sm-3 list">
-                <a href="<?php echo URL_BASE . 'user/login' ?>">Đăng nhập</a>
-            </div>
+            <?php
+            if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
+                ?>
+                <div class="col-sm-3 list">
+                    <a href="#">Xin chào : <?php echo $_SESSION['email'];?></a>
+                </div>
+                <div class="col-sm-3 list">
+                    <a href="<?php echo URL_BASE . 'user/logoutProcess' ?>">Đăng xuất</a>
+                </div>
+                <?php
+            } else {
+                ?>
+                <div class="col-sm-3 list">
+                    <a href="<?php echo URL_BASE . 'user/register' ?>">Đăng ký</a>
+                </div>
+                <div class="col-sm-3 list">
+                    <a href="<?php echo URL_BASE . 'user/login' ?>">Đăng nhập</a>
+                </div>
+                <?php
+            }
+            ?>
         </div>
     </div>
 </div>
@@ -35,22 +50,22 @@
                         <div class="col-sm-3" style="padding: 0px;">
                             <div id="select-box">
                                 <select name="categoryId" id="cbCategory">
-                                    
+
                                     <option value="" selected>Please choose</option>
-                                    <?php 
-                        $database = new Libs_Model();
-                        $db = $database->getConnection();
-                        $category = new Default_Models_Category($db);
-                        $catObj = $category->getAllSubCategory();
-                        while($rowCat=$catObj->fetch(PDO::FETCH_ASSOC)){
-                        ?>
-                                    <option value="<?php echo $rowCat['categoryName']; ?>" >
-                            <?php echo $rowCat['categoryName']; ?></a>
-                                </option>
-                        <?php
-                        }
-                        ?>
-                                    
+                                    <?php
+                                    $database = new Libs_Model();
+                                    $db = $database->getConnection();
+                                    $category = new Default_Models_Category($db);
+                                    $catObj = $category->getAllSubCategory();
+                                    while ($rowCat = $catObj->fetch(PDO::FETCH_ASSOC)) {
+                                        ?>
+                                        <option value="<?php echo $rowCat['categoryName']; ?>" >
+                                            <?php echo $rowCat['categoryName']; ?></a>
+                                        </option>
+                                        <?php
+                                    }
+                                    ?>
+
                                 </select>
                             </div>
                         </div>
@@ -92,19 +107,19 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav">
-                      <?php 
-                        $database = new Libs_Model();
-                        $db = $database->getConnection();
-                        $category = new Default_Models_Category($db);
-                        $catObj = $category->getAllParentCategory();
-                        while($rowCat=$catObj->fetch(PDO::FETCH_ASSOC)){
+                    <?php
+                    $database = new Libs_Model();
+                    $db = $database->getConnection();
+                    $category = new Default_Models_Category($db);
+                    $catObj = $category->getAllParentCategory();
+                    while ($rowCat = $catObj->fetch(PDO::FETCH_ASSOC)) {
                         ?>
                         <li id="menuheader">
                             <a href="#"><?php echo $rowCat['categoryName']; ?></a>
                         </li>
                         <?php
-                        }
-                        ?>
+                    }
+                    ?>
                     <!--                                <li id="menuheader">
                                                         <a href="#">Sản phẩm bán chạy</a>
                                                     </li>

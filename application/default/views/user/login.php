@@ -2,20 +2,20 @@
     <div class="row">
         <div class="col-sm-3"></div>
         <div class="col-sm-6 login_div">
-            <form action="index2.php" method="POST" onsubmit="return validateForm_login()">
+            <form action="<?php echo URL_BASE?>user/loginProccess" method="POST" onsubmit="return validateForm_login()">
                 <div class="form-group">
                     <div>
                         <h3>THÔNG TIN TÀI KHOẢN</h3>
                         <div>
-                            <label for="usr" class="text-primary login_center ">Tên tài khoản</label>
-                            <span id="usr-alert" style="color: red"></span>
-                            <input type="text" class="form-control" id="usr" placeholder="Tên tài khoản">
+                            <label for="email" class="text-primary login_center ">Email đăng nhập</label>
+                            <span id="email-alert" style="color: red"></span>
+                            <input type="text" name="email" class="form-control" id="email" placeholder="Tên tài khoản">
                         </div>
                         <br>
                         <div>
-                            <label for="pwd" class="text-primary login_center ">Mật khẩu</label>
-                            <span id="pwd-alert" style="color: red"></span>
-                            <input type="password" class="form-control" id="pwd" placeholder="Mật khẩu"> 
+                            <label for="password" class="text-primary login_center ">Mật khẩu</label>
+                            <span id="password-alert" style="color: red"></span>
+                            <input type="password" class="form-control" name="password" id="password" placeholder="Mật khẩu"> 
                         </div>
                     </div>                   
                 </div>
