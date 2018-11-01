@@ -559,7 +559,7 @@ input, button, textarea, select, optgroup, option {
 }
 .login_div span{
     color: red; 
-    float: right
+    float: right;
 }
 
 /*detail*/

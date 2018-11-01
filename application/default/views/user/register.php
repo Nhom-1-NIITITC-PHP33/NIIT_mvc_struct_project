@@ -55,23 +55,29 @@ function validateForm_register() {
         document.getElementById("address-alert").innerHTML = "Địa chỉ không được để trống\n";
         error = true;
     } else {
-        //document.getElementById("address-alert").innerHTML = ""
+        document.getElementById("address-alert").innerHTML = ""
     }
 
     if (error) {
         return false;
     }else{
-        return isEmailAvailable();
+        if (isEmailAvailable()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 
 function isEmailAvailable(){
+    //da goi dc function
     //gửi dữ lieu bang ajax
+    var email = document.getElementById("email").value;
     var xmlhttp = new XMLHttpRequest();
                 xmlhttp.onreadystatechange = function () {
                     if (this.readyState === 4 && this.status === 200) {
-                        if (responseText === 'noExist'){
-                            document.getElementById("email-alert").innerHTML = '';
+                        if (this.responseText === 'noExist'){
+                            document.getElementById("email-alert").innerHTML = 'Email khả dụng';
                             return true;
                         }else{
                             document.getElementById("email-alert").innerHTML = 'Email này đã sử dụng';
@@ -91,9 +97,9 @@ function isEmailAvailable(){
             <div class="row">
                 <div class="col-sm-6 ">
                     <h3>THÔNG TIN TÀI KHOẢN</h3>
-                    <label for="email" class="text-primary login_center" onfocusout=isEmailAvailable()>Email đăng nhập</label>
+                    <label for="email" class="text-primary login_center">Email đăng nhập</label>
                     <span id="email-alert"></span>
-                    <input type="text" class="form-control" id="email" name="email" tabindex=1 ><br> <!--onfocusout="<?php echo URL_BASE ?>user/showHint"-->
+                    <input type="text" class="form-control" id="email" name="email" tabindex=1  onfocusout="isEmailAvailable(this.value)"><br>
 
                     <label for="password" class="text-primary login_center ">Mật khẩu</label>
                     <span id="password-alert"></span>
