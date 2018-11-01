@@ -155,16 +155,7 @@ function validateForm_register() {
         return false;
     }
 }
-$(document).ready(function () {
-                $("#email").focusout(function () {
-                    alert('hello');
-                    /*var email = document.getElementById("email").value;
-                    $("#email-alert").load("gethint.php?q=" + email, function (responseText, statusTxt, xhr) {
-                        if (statusTxt === "Success")
-                            $("#email-alert").html($("#responseText"));//document.getElementById("email-alert").innerHTML = responseText;
-                    });*/
-                });
-            });
+
 
 
 

@@ -32,6 +32,19 @@ class Default_Models_User {
         $stmt->execute();
     }
     
+    public function checkEmail(){
+        $query = "SELECT * FROM customers WHERE email = ? LIMIT 0,1";
+        $stmt = $this->con->prepare($query);
+        $stmt->bindParam(1, $this->email);
+        $stmt->execute();
+         $rowCount = $stmt->rowCount();
+        if ($rowCount > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
     public function checkUser(){
         $query = "SELECT * FROM customers WHERE email = ? AND password = ? LIMIT 0,1";
         $stmt = $this->con->prepare($query);
