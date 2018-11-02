@@ -68,10 +68,51 @@
                     $("#search").show();
                 }
             });
+            //Chức năng thêm vào giỏ hàng và lọc sản phẩm
+            function showProduct() {
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        document.getElementById("result").innerHTML = this.responseText;
+                    }
+                };
 
+                xmlhttp.open("GET", "<?php echo URL_BASE; ?>show", true);
+                xmlhttp.send();
+
+            }
+            function getbycategory(catid) {
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        document.getElementById("result").innerHTML = this.responseText;
+                    }
+                };
+
+                xmlhttp.open("GET", "<?php echo URL_BASE; ?>getbycategory?id=" + catid, true);
+                xmlhttp.send();
+            }
+            function livesale(id) {
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        document.getElementById("messageCart").innerHTML = this.responseText;
+                    }
+                };
+
+                xmlhttp.open("GET", "<?php echo URL_BASE; ?>cart/addtocart?id=" + id, true);
+                xmlhttp.send();
+            }
+            //Kết thúc chức năng thêm vào giỏ hàng và lọc sản phẩm
+
+            function showCart() {
+                        document.getElementById("messageCart").innerHTML = <?php echo count($_SESSION['cart_item']);?>;
+                    
+
+            }
         </script>
     </head>
-    <body>
+    <body onload="showCart();">
 
         <?php require 'templates/default/header.php'; ?>
         <?php

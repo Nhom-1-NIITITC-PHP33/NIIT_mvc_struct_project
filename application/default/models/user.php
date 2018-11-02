@@ -58,6 +58,10 @@ class Default_Models_User {
             return false;
         }
     }
+        public function getName(){
+            
+        }
+
     
     
 }

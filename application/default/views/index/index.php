@@ -5,26 +5,40 @@
                 <div id="myCarousel" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators">
                         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                        <li data-target="#myCarousel" data-slide-to="1"></li>
-                        <li data-target="#myCarousel" data-slide-to="2"></li>
-                        <li data-target="#myCarousel" data-slide-to="3"></li>
+                        <?php
+                        $count = $this->slide->rowCount();
+                        for ($x = 1; $x < $count; $x++) {
+                            ?>
+                            <li data-target="#myCarousel" data-slide-to="<?php echo $x ?>"></li>
+                            <?php
+                        }
+                        ?>
+
                     </ol>
                     <div class="carousel-inner">
-                        <div class="item active">
-                            <img src="<?php echo URL_BASE; ?>templates/default/image/sl1.jpg" alt="Los Angeles" style="width:100%;">
-                        </div>
+                        <?php
+                        $num = 1;
+                        while ($newslide = $this->slide->fetch(PDO::FETCH_ASSOC)) {
+                            extract($newslide);
+                            if ($num == 1) {
+                                ?>
+                                <div class="item active">
+                                    <img src="<?php echo URL_BASE; ?>templates/default/image/<?php echo $image; ?>"  style="width:100%;">
+                                </div>
+                                <?php
+                            } else {
+                                ?>
+                                <div class="item">
+                                    <img src="<?php echo URL_BASE; ?>templates/default/image/<?php echo $image; ?>"  style="width:100%;">
+                                </div>
+                                <?php
+                            }
+                            $num = 2;
+                        }
+                        ?>
 
-                        <div class="item">
-                            <img src="<?php echo URL_BASE; ?>templates/default/image/sl2.jpg" alt="Chicago" style="width:100%;">
-                        </div>
-
-                        <div class="item">
-                            <img src="<?php echo URL_BASE; ?>templates/default/image/sl3.jpg" alt="New york" style="width:100%;">
-                        </div>
-                        <div class="item">
-                            <img src="<?php echo URL_BASE; ?>templates/default/image/sl4.jpg" alt="New york" style="width:100%;">
-                        </div>
                     </div>
+
                     <!-- Left and right controls -->
                     <a class="left carousel-control" href="#myCarousel" data-slide="prev">
                         <span class="glyphicon glyphicon-chevron-left"></span>
@@ -67,50 +81,28 @@
     <div class="container" id="product-header">
         <div>
             <i class="fa fa-list-alt" style="padding-right: 5px;"></i>
-            <span style="color: #1b6d85; font-size: 23px;">Sản phẩm mới</span>
+            <span style="color: #1b6d85; font-size: 23px;">Sản phẩm mới nhất</span>
         </div>
     </div>
 </div>
 <div class="container-fluid">
     <div class="container">
         <div class="owl-carousel owl-theme owl-loaded owl-drag">
+            <?php
+            while ($newRow = $this->newData->fetch(PDO::FETCH_ASSOC)) {
+                extract($newRow);
+                ?>
 
-            <div class="item"><h4> 
-                    <img src="<?php echo URL_BASE; ?>templates/default/image/cr1.PNG" alt=""/>
-                </h4></div>
-            <div class="item"><h4>
-                    <img src="<?php echo URL_BASE; ?>templates/default/image/cr2.PNG" alt=""/>
-                </h4></div>
-            <div class="item"><h4>
-                    <img src="<?php echo URL_BASE; ?>templates/default/image/cr3.PNG" alt=""/>
-                </h4></div>
-            <div class="item"><h4>
-                    <img src="<?php echo URL_BASE; ?>templates/default/image/cr4.PNG" alt=""/>
-                </h4></div>
-            <div class="item"><h4>
-                    <img src="<?php echo URL_BASE; ?>templates/default/image/cr5.PNG" alt=""/>
-                </h4></div>
-            <div class="item"><h4>
-                    <img src="<?php echo URL_BASE; ?>templates/default/image/cr6.PNG" alt=""/>
-                </h4></div>
-            <div class="item"><h4>
-                    <img src="<?php echo URL_BASE; ?>templates/default/image/cr7.PNG" alt=""/>
-                </h4></div>
-            <div class="item"><h4>
-                    <img src="<?php echo URL_BASE; ?>templates/default/image/cr8.PNG" alt=""/>
-                </h4></div>
-            <div class="item"><h4>
-                    <img src="<?php echo URL_BASE; ?>templates/default/image/cr9.PNG" alt=""/>
-                </h4></div>
-            <div class="item"><h4>
-                    <img src="<?php echo URL_BASE; ?>templates/default/image/cr10.PNG" alt=""/>
-                </h4></div>
-            <div class="item"><h4>
-                    <img src="<?php echo URL_BASE; ?>templates/default/image/cr11.PNG" alt=""/>
-                </h4></div>
-            <div class="item"><h4>
-                    <img src="<?php echo URL_BASE; ?>templates/default/image/cr12.PNG" alt=""/>
-                </h4></div>
+                <div class="item">
+                    <h4> 
+                        <a href="<?php echo URL_BASE . 'index/detail?id=' . $productID; ?>">
+                            <img src="<?php echo URL_BASE; ?>templates/default/image/<?php echo $image; ?>" alt=""/>
+                        </a>
+                    </h4>
+                </div>
+                <?php
+            }
+            ?>
         </div>
         <script>
             var owl = $('.owl-carousel');
@@ -147,257 +139,79 @@
 <div class="container" id="product-header">
     <div>
         <i class="fa fa-list-alt" style="padding-right: 5px;"></i>
-        <span style="color: #1b6d85;font-size: 23px;">Top Iphone hot nhất</span>
+        <span style="color: #1b6d85;font-size: 23px;">Sản phẩm chính</span>
     </div>
 </div>
 
 <div class="container-fluid" id="product-list">
     <div class="container">
         <div class="row">
-            <div class="col-sm-9" id="product">
-                <div class="container-fluid">
-                    <div class="row">
-                        <?php
-                        
-                        while($row= $this->proData->fetch(PDO::FETCH_ASSOC)){
-                            extract($row);
-                        
-                        ?>
-                        <div class="col-sm-3 item-product">
-                            <div class="grid" class="item-img">
-                                <figure class="effect-zoe">
-                                    <a href="<?php echo URL_BASE . 'index/detail?id='.$id; ?>">
-                                        <img src="<?php echo URL_BASE; ?>templates/default/image/<?php echo $image; ?>" alt="image"/>
-                                    </a>
-                                    <figcaption>
-                                        <p>
-                                            <span><a href="<?php echo URL_BASE . 'index/detail' ?>">Thông tin chi tiết</a></span>
-                                        </p>
-                                    </figcaption>
-                                </figure>
-                            </div>
-                            <div class="item-name">
-                                <a href="<?php echo URL_BASE . 'index/detail?id='.$id ?>"><?php echo $productName; ?></a>
-                            </div>
-                            <div class="item-price">
-                                <span class="new-price"><?php echo ($unitPrice*(100-$discount)/100)." đ" ?></span>
-                                <span class="old-price"><?php echo $unitPrice." đ"; ?></span>
-                            </div>
-                        </div>
-                        <?php
-                        }
-                        ?>
-<!--                        <div class="col-sm-3 item-product">
-                            <div class="grid" class="item-img">
-                                <figure class="effect-zoe">
-                                    <a href="detail.php">
-                                        <img src="<?php echo URL_BASE; ?>templates/default/image/iphone-7-plus_1.jpg" alt=""/>
-                                    </a>
-                                    <figcaption>
-                                        <p>
-                                            <span>
-                                                <a href="#">Thông tin chi tiết</a>
-                                            </span>
-                                        </p>
-                                    </figcaption>
-                                </figure>
-                            </div>
-                            <div class="item-name">
-                                <a href="detail.php">iphone-7-plus</a>
-                            </div>
-                            <div class="item-price">
-                                <span class="new-price">10.000.000 đ</span>
-                                <span class="old-price">15.000.000 đ</span>
-                            </div>
-                        </div>
-                        <div class="col-sm-3 item-product">
-                            <div class="grid" class="item-img">
-                                <figure class="effect-zoe">
-                                    <a href="#">
-                                        <img src="<?php echo URL_BASE; ?>templates/default/image/iphone-6_1.jpg" alt=""/>
-                                    </a>
-
-                                    <figcaption>
-                                        <p>
-                                            <span>
-                                                <a href="#">Thông tin chi tiết</a>
-                                            </span>
-                                        </p>
-                                    </figcaption>
-                                </figure>
-                            </div>
-                            <div class="item-name">
-                                <a href="detail.php">iphone-6</a>
-                            </div>
-                            <div class="item-price">
-                                <span class="new-price">6.000.000 đ</span>
-                                <span class="old-price">8.000.000 đ</span>
-                            </div>
-                        </div>
-                        <div class="col-sm-3 item-product">
-                            <div class="grid" class="item-img">
-                                <figure class="effect-zoe">
-                                    <a href="detail.php">
-                                        <img src="<?php echo URL_BASE; ?>templates/default/image/iphone-7_1.jpg" alt=""/>
-                                    </a>
-                                    <figcaption>
-                                        <p>
-                                            <span>
-                                                <a href="#">Thông tin chi tiết</a>
-                                            </span>
-                                        </p>
-                                    </figcaption>
-                                </figure>
-                            </div>
-                            <div class="item-name">
-                                <a href="detail.php">iphone-7</a>
-                            </div>
-                            <div class="item-price">
-                                <span class="new-price">10.000.000 đ</span>
-                                <span class="old-price">15.000.000 đ</span>
-                            </div>
-                        </div>
-                        <div class="col-sm-3 item-product">
-                            <div class="grid" class="item-img">
-                                <figure class="effect-zoe">
-                                    <a href="detail.php">
-                                        <img src="<?php echo URL_BASE; ?>templates/default/image/iphone-8-plus_1.jpg" alt=""/>
-                                    </a>
-                                    <figcaption>
-                                        <p>
-                                            <span>
-                                                <a href="#">Thông tin chi tiết</a>
-                                            </span>
-                                        </p>
-                                    </figcaption>
-                                </figure>
-                            </div>
-                            <div class="item-name">
-                                <a href="detail.php">iphone-8-plus</a>
-                            </div>
-                            <div class="item-price">
-                                <span class="new-price">20.000.000 đ</span>
-                                <span class="old-price">25.000.000 đ</span>
-                            </div>
-                        </div>
-                        <div class="col-sm-3 item-product">
-                            <div class="grid" class="item-img">
-                                <figure class="effect-zoe">
-                                    <a href="detail.php">
-                                        <img src="<?php echo URL_BASE; ?>templates/default/image/iphone-7_1.jpg" alt=""/>
-                                    </a>
-                                    <figcaption>
-                                        <p>
-                                            <span>
-                                                <a href="#">Thông tin chi tiết</a>
-                                            </span>
-                                        </p>
-                                    </figcaption>
-                                </figure>
-                            </div>
-                            <div class="item-name">
-                                <a href="detail.php">iphone-7</a>
-                            </div>
-                            <div class="item-price">
-                                <span class="new-price">10.000.000 đ</span>
-                                <span class="old-price">15.000.000 đ</span>
-                            </div>
-                        </div>
-                        <div class="col-sm-3 item-product">
-                            <div class="grid" class="item-img">
-                                <figure class="effect-zoe">
-                                    <a href="detail.php">
-                                        <img src="<?php echo URL_BASE; ?>templates/default/image/iphone-7_1.jpg" alt=""/>
-                                    </a>
-                                    <figcaption>
-                                        <p>
-                                            <span>
-                                                <a href="#">Thông tin chi tiết</a>
-                                            </span>
-                                        </p>
-                                    </figcaption>
-                                </figure>
-                            </div>
-                            <div class="item-name">
-                                <a href="detail.php">iphone-7</a>
-                            </div>
-                            <div class="item-price">
-                                <span class="new-price">10.000.000 đ</span>
-                                <span class="old-price">15.000.000 đ</span>
-                            </div>
-                        </div>
-                        <div class="col-sm-3 item-product">
-                            <div class="grid" class="item-img">
-                                <figure class="effect-zoe">
-                                    <a href="detail.php">
-                                        <img src="<?php echo URL_BASE; ?>templates/default/image/iphone-7-plus_1.jpg" alt=""/>
-                                    </a>
-                                    <figcaption>
-                                        <p>
-                                            <span>
-                                                <a href="#">Thông tin chi tiết</a>
-                                            </span>
-                                        </p>
-                                    </figcaption>
-                                </figure>
-                            </div>
-                            <div class="item-name">
-                                <a href="#">iphone-X</a>
-                            </div>
-                            <div class="item-price">
-                                <span class="new-price">22.000.000 đ</span>
-                                <span class="old-price">28.000.000 đ</span>
-                            </div>
-                        </div>-->
-                    </div>
-                </div>
-
-            </div>
             <div class="col-sm-3" id="right">
                 <div class="container-fluid" id="menu-right">
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="menu-right-header">
-                                <i class="fa fa-tags" style="padding-right: 2%;"></i>
-                                Sản phẩm bán chạy nhất
-                            </div>
-                            <div class="menu-right-content">
-                                <a href="#">
-                                    <div class="product-seller">
-                                        <div class="img-seller">
-                                            <img src="<?php echo URL_BASE; ?>templates/default/image/iphone-8-plus_1.jpg" alt=""/>
-                                        </div>
-                                        <div class="name-seller">
-                                            iphone-8-plus
-                                        </div>
-                                        <div class="price-seller">
-                                            <span class="new">20.000.000 đ</span>
-                                            <span class="old">25.000.000 đ</span>
-                                        </div>
-                                    </div>
-                                </a>
-
-                                <a href="#">
-                                    <div class="product-seller">
-                                        <div class="img-seller">
-                                            <img src="<?php echo URL_BASE; ?>templates/default/image/iphone-7-plus_1.jpg" alt=""/>
-                                        </div>
-                                        <div class="name-seller">
-                                            iphone-7-plus
-                                        </div>
-                                        <div class="price-seller">
-                                            <span class="new">12.000.000 đ</span>
-                                            <span class="old">15.000.000 đ</span>
-                                        </div>
-                                    </div>
-                                </a>
-
-
-                            </div>
+                                <i class="glyphicon glyphicon-list-alt" style="padding-right: 2%;"></i>
+                                Bộ lọc sản phẩm 
+                            </div><br>
+                            <p style="color: #1B6D85;">Lọc theo giá sản phẩm:</p>
+                            <select name="" id="" onchange="showProduct(this.value);" class="form-control">
+                                <option value="">--- Chọn khoảng giá --- </option>
+                                <option value="">Dưới 3 triệu</option>
+                                <option value="">3 -> 5 triệu</option>
+                                <option value="">trên 5 triệu</option>
+                            </select><br>
+                            <p style="color: #1B6D85;">Lọc theo Kích thước màn hình:</p>
+                            <select name="" id="" onchange="showProduct(this.value);" class="form-control">
+                                <option value="">--- Chọn kích thước màn hình --- </option>
+                                <option value="">Dưới 4 inch</option>
+                                <option value="">từ 4->5 inch</option>
+                                <option value="">trên 5 inch</option>
+                            </select><br>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="col-sm-9" id="product">
+                <div class="container-fluid">
+                    <div class="row">
+                        <?php
+                        while ($row = $this->proData->fetch(PDO::FETCH_ASSOC)) {
+                            extract($row);
+                            ?>
+                            <div class="col-sm-3 item-product">
+                                <div class="grid" class="item-img">
+                                    <figure class="effect-zoe">
+                                        <a href="<?php echo URL_BASE . 'detail?id=' . $productID; ?>">
+                                            <img src="<?php echo URL_BASE; ?>templates/default/image/<?php echo $image; ?>" alt="image"/>
+                                        </a>
+                                        <figcaption>
+                                            <p>
+                                                <span><a href="#" onclick="livesale(<?php echo $productID; ?>)">Thêm vào giỏ hàng <br><i class="fa fa-cart-arrow-down" style="font-size: 24px;"></i></a></span>
+                                            </p>
+                                        </figcaption>
+                                    </figure>
+                                </div>
+                                <div class="item-name">
+                                    <a href="<?php echo URL_BASE . 'index/detail?id=' . $productID ?>"><?php echo $productName; ?></a>
+                                </div>
+                                <div class="item-price">
+                                    <span class="new-price"><?php echo number_format($unitPrice * (100 - $discount) / 100) . " đ"; ?></span>
+                                    <span class="old-price"><?php echo number_format($unitPrice) . " đ"; ?></span>
+                                    <div  class="muangay btn"><a href="<?php echo URL_BASE; ?>cart" onclick="livesale(<?php echo $productID; ?>)">Mua ngay</a></div>
+                                </div>
+
+
+
+                            </div>
+                            <?php
+                        }
+                        ?>
+                    </div>
+                </div>
+
+            </div>
+
         </div>
     </div>
 </div>

@@ -1,30 +1,24 @@
-<div class="container-fluid w3-yellow" id="topheader" onload="showCate()">
+<div class="container-fluid w3-yellow" id="topheader">
     <div class="container">
         <div class="row ">
-            <div class="col-sm-3 list">
+            <div class="col-sm-6 list-left">
                 <a href="#">
-                    <span class="fa fa-bell-o"></span>Thông báo</a>
-            </div>
-            <div class="col-sm-3 list">
+                    <span class="fa fa-bell-o"></span>Thông báo|</a>
                 <a href="<?php echo URL_BASE . 'care/index' ?>">
                     <span class="fa fa-question-circle"></span>Trợ giúp</a>
             </div>
             <?php
             if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
                 ?>
-                <div class="col-sm-3 list">
-                    <a href="#">Xin chào : <?php echo $_SESSION['email'];?></a>
-                </div>
-                <div class="col-sm-3 list">
+                <div class="col-sm-6 list-right">
+                    <a href="#">Xin chào : <?php echo $_SESSION['email']."| "; ?></a>                
                     <a href="<?php echo URL_BASE . 'user/logoutProcess' ?>">Đăng xuất</a>
                 </div>
                 <?php
             } else {
                 ?>
-                <div class="col-sm-3 list">
-                    <a href="<?php echo URL_BASE . 'user/register' ?>">Đăng ký</a>
-                </div>
-                <div class="col-sm-3 list">
+                <div class="col-sm-6 list-right">
+                    <a href="<?php echo URL_BASE . 'user/register' ?>">Đăng ký|</a>
                     <a href="<?php echo URL_BASE . 'user/login' ?>">Đăng nhập</a>
                 </div>
                 <?php
@@ -37,7 +31,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-3 col-sm-3" id="logo">
-                <a href="../index">
+                <a href="<?php echo URL_BASE; ?>">
                     <img src="<?php echo URL_BASE ?>/templates/default/image/logo.jpg" alt="logo" width="110px" height="60px">
                 </a>
             </div>
@@ -45,27 +39,16 @@
                 <div class="container-fluid">
                     <div class="row" id="search">
                         <div class="col-sm-8" style="padding-right: 1px;">
-                            <input type="search" name="txtSearch" id="txtSearch" placeholder="Bạn cần tìm gì?"><!--working here-->
+                            <input type="search" name="txtSearch" id="txtSearch" placeholder="Bạn cần tìm gì?">
                         </div>
                         <div class="col-sm-3" style="padding: 0px;">
                             <div id="select-box">
-                                <select name="categoryId" id="cbCategory">
-
-                                    <option value="" selected>Please choose</option>
-                                    <?php
-                                    $database = new Libs_Model();
-                                    $db = $database->getConnection();
-                                    $category = new Default_Models_Category($db);
-                                    $catObj = $category->getAllSubCategory();
-                                    while ($rowCat = $catObj->fetch(PDO::FETCH_ASSOC)) {
-                                        ?>
-                                        <option value="<?php echo $rowCat['categoryName']; ?>" >
-                                            <?php echo $rowCat['categoryName']; ?></a>
-                                        </option>
-                                        <?php
-                                    }
-                                    ?>
-
+                                <select name="categoryId">
+                                    <option value="" selected>Iphone</option>
+                                    <option value="SamSung">SamSung</option>
+                                    <option value="Sony">Sony</option>
+                                    <option value="Xiaomi">Xiaomi</option>
+                                    <option value="Nokia">Nokia</option>
                                 </select>
                             </div>
                         </div>
@@ -81,7 +64,7 @@
                 <a href="<?php echo URL_BASE ?>cart/index">
                     <button type="button" class="btn btn-default">
                         <i class="fa fa-cart-arrow-down" style="font-size: 24px;"></i>
-                        <span class="badge">0</span>
+                        <span class="badge" id="messageCart">0</span>
                     </button>
                 </a>
             </div>                    
@@ -99,88 +82,66 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="<?php echo URL_BASE; ?>">
                     <span class="glyphicon glyphicon-home" style="color:#ffffff"></span>
                 </a>
             </div>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav">
+                    <li id="menuheader">
+                        <a href="#">Sản phẩm bán chạy</a>
+                    </li>
                     <?php
                     $database = new Libs_Model();
                     $db = $database->getConnection();
                     $category = new Default_Models_Category($db);
                     $catObj = $category->getAllParentCategory();
                     while ($rowCat = $catObj->fetch(PDO::FETCH_ASSOC)) {
-                        ?>
-                        <li id="menuheader">
-                            <a href="#"><?php echo $rowCat['categoryName']; ?></a>
-                        </li>
-                        <?php
+                        if ($category->CountCategory($rowCat['categoryID']) > 0) {
+                            ?>
+
+                            <li class="dropdown" id="menuheader">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $rowCat['categoryName'] ?>
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <?php
+                                    $category1 = new Default_Models_Category($db);
+                                    $subCategoryId = $rowCat['categoryID'];
+
+                                    $catObj1 = $category1->getSubCategoryIdByParent($subCategoryId);
+
+
+
+                                    while ($rowCat1 = $catObj1->fetch(PDO::FETCH_ASSOC)) {
+                                        ?>
+                                        <li>
+                                            <a href="<?php echo URL_BASE; ?>getPageCategory/?id=<?php echo $rowCat1['categoryID']; ?>"><?php echo $rowCat1['categoryName'] ?></a>
+                                        </li>
+                                        <?php
+                                    }
+                                    ?>
+                                </ul>
+                            </li>
+                        <?php } else { ?>
+
+                            <li id="menuheader">
+                                <a href="#">
+                                    <?php echo $rowCat['categoryName'] ?>
+                                </a>
+                            </li>
+                            <?php
+                        }
                     }
                     ?>
-                    <!--                                <li id="menuheader">
-                                                        <a href="#">Sản phẩm bán chạy</a>
-                                                    </li>
-                                                    <li class="dropdown" id="menuheader">
-                                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Điện Thoại
-                                                            <span class="caret"></span>
-                                                        </a>
-                                                        <ul class="dropdown-menu">
-                                                            <li>
-                                                                <a href="danhmucIP.php">Iphone</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#">Samsung</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#">Sony</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#">Xiaomi</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#">Nokia</a>
-                                                            </li>
-                    
-                                                        </ul>
-                                                    </li>
-                                                    <li class="dropdown" id="menuheader">
-                                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tablet
-                                                            <span class="caret"></span>
-                                                        </a>
-                                                        <ul class="dropdown-menu">
-                                                            <li>
-                                                                <a href="#">Iphone</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#">Samsung</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#">Sony</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#">Xiaomi</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#">Nokia</a>
-                                                            </li>
-                    
-                                                        </ul>
-                                                    </li>
-                                                    <li id="menuheader">
-                                                        <a href="#">Phụ kiện</a>
-                                                    </li>
-                                                    <li id="menuheader">
-                                                        <a href="#">Ưu đãi</a>
-                                                    </li>-->
                     <li id="menuheader">
                         <a href="#">Giới thiệu</a>
                     </li>
                     <li id="menuheader">
                         <a href="#">Liên hệ</a>
                     </li>
+
                 </ul>
             </div>
         </div>
