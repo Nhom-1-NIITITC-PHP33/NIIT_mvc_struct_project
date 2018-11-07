@@ -1,13 +1,13 @@
 
 <div class="container text_center">
-    <form  action="<?php echo URL_BASE ?>user/registerProcess" method="post" enctype="multipart/form-data" onsubmit="return validateForm_register()"> 
+    <form  action="<?php echo URL_BASE ?>customer/registerProcess" method="post" enctype="multipart/form-data" onsubmit="return validateForm_register()"> 
         <div class="form-group login_div">
             <div class="row">
                 <div class="col-sm-6 ">
                     <h3>THÔNG TIN TÀI KHOẢN</h3>
                     <label for="email" class="text-primary login_center">Email đăng nhập</label>
                     <span id="email-alert"></span>
-                    <input type="text" class="form-control" id="email" name="email" tabindex=1 ><br> <!--onfocusout="<?php echo URL_BASE ?>user/showHint"-->
+                    <input type="text" class="form-control" id="email" name="email" tabindex=1 ><br> <!--onfocusout="<?php echo URL_BASE ?>customer/showHint"-->
 
                     <label for="password" class="text-primary login_center ">Mật khẩu</label>
                     <span id="password-alert"></span>

@@ -1,6 +1,8 @@
 
 <?php
 session_start();
+echo "<script>window.location.href='" . URL_BASE . "employee/login';</script>";
+
 ?>
 
     <div style="margin-left:0;padding-left: 0;">

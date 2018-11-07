@@ -12,14 +12,14 @@
                 ?>
                 <div class="col-sm-6 list-right">
                     <a href="#">Xin chào : <?php echo $_SESSION['email']."| "; ?></a>                
-                    <a href="<?php echo URL_BASE . 'user/logoutProcess' ?>">Đăng xuất</a>
+                    <a href="<?php echo URL_BASE . 'customer/logoutProcess' ?>">Đăng xuất</a>
                 </div>
                 <?php
             } else {
                 ?>
                 <div class="col-sm-6 list-right">
-                    <a href="<?php echo URL_BASE . 'user/register' ?>">Đăng ký|</a>
-                    <a href="<?php echo URL_BASE . 'user/login' ?>">Đăng nhập</a>
+                    <a href="<?php echo URL_BASE . 'customer/register' ?>">Đăng ký|</a>
+                    <a href="<?php echo URL_BASE . 'customer/login' ?>">Đăng nhập</a>
                 </div>
                 <?php
             }

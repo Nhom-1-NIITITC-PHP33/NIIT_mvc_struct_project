@@ -1,6 +1,6 @@
 <?php
 
-class Default_Models_User {
+class Default_Models_Customer {
 
     public $id;
     public $gender;
@@ -18,7 +18,7 @@ class Default_Models_User {
         $this->con = $db;
     }
     
-    public function addUser() {
+    public function addCustomer() {
         $query = "INSERT INTO `customers` ( `email`, `password`, `phone`, `address`,  `fullName`, `birthDate`, `gender`) "
                     . "VALUES  ( :email, :password, :phone, :address, :fullName, :birthDate, :gender);";
         $stmt = $this->con->prepare($query);
@@ -45,7 +45,7 @@ class Default_Models_User {
         }
     }
     
-    public function checkUser(){
+    public function checkCustomer(){
         $query = "SELECT * FROM customers WHERE email = ? AND password = ? LIMIT 0,1";
         $stmt = $this->con->prepare($query);
         $stmt->bindParam(1, $this->email);

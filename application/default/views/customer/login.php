@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-sm-3"></div>
         <div class="col-sm-6 login_div">
-            <form action="<?php echo URL_BASE?>user/loginProccess" method="POST" onsubmit="return validateForm_login()">
+            <form action="<?php echo URL_BASE?>customer/loginProccess" method="POST" onsubmit="return validateForm_login()">
                 <div class="form-group">
                     <div>
                         <h3>THÔNG TIN TÀI KHOẢN</h3>
