@@ -19,7 +19,22 @@ class Default_Models_Product {
     public function __construct($db) {
         $this->con = $db;
     }
+    //search product
+    public function searchProduct($name){
+        
+            $query = "$name";
+            $stmt = $this->con->prepare($query);
+            $stmt->execute();
 
+            $rowCount = $stmt->rowCount();
+            if ($rowCount > 0) {
+                return $stmt;
+            } else {
+                return null;
+            }
+        
+    }
+    
     public function getAllProduct() {
         $query = "SELECT productID, productCode, productName, unitPrice, discount, image, description FROM products";
         $stmt = $this->con->prepare($query);

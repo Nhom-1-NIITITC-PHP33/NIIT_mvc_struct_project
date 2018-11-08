@@ -1,7 +1,7 @@
 <?php
 
 class Default_Models_OrderDetail {
-
+    public $orderDetailID;
     public $orderID;
     public $productID;
     public $quantity;
@@ -14,20 +14,18 @@ class Default_Models_OrderDetail {
 
     public function addOrderDetail() {
 
-        $query = "INSERT INTO orders (productID, quantity, price) value(?, ?, ?)";
+       $query = "INSERT INTO orderdetails SET orderID=:orderID, productID=:productID, quantity=:quantity, price=:price";
         $stmt = $this->con->prepare($query);
-//            $this->orderID = htmlspecialchars(strip_tags($this->orderID));
+        $this->orderID = htmlspecialchars(strip_tags($this->orderID));
         $this->productID = htmlspecialchars(strip_tags($this->productID));
         $this->quantity = htmlspecialchars(strip_tags($this->quantity));
         $this->price = htmlspecialchars(strip_tags($this->price));
 
-        $stmt->bindParam(1, $this->productID);
-        $stmt->bindParam(2, $this->quantity);
-        $stmt->bindParam(3, $this->price);
-        foreach ($_SESSION['cart_item'] as $item) {
-            $this->productID=$item[''];
-            $stmt->execute();
-        }
+        $stmt->bindParam(':orderID', $this->orderID);
+        $stmt->bindParam(':productID', $this->productID);
+        $stmt->bindParam(':quantity', $this->quantity);
+        $stmt->bindParam(':price', $this->price);
+        $stmt->execute();
     }
 
 }

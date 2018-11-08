@@ -1,4 +1,9 @@
-<div style="margin-left:0;padding-left: 0;">
+
+<?php
+session_start();
+?>
+
+    <div style="margin-left:0;padding-left: 0;">
         <?php
 //        if (!isset($_SESSION['email'])) {
 //            header("location:admin/user/login");

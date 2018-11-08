@@ -14,6 +14,18 @@ class Default_Models_Order {
     public function __construct($db) {
         $this->con = $db;
     }
+public function getInforOrderByCustomerID(){
+    $query = "SELECT * FROM orders WHERE customerID = ? LIMIT 0,1";
+        $stmt = $this->con->prepare($query);
+        $stmt->bindParam(1, htmlspecialchars(strip_tags($this->customerID)));
+        $stmt->execute();
+        $row = $stmt->rowCount();
+        if ($row > 0) {
+            return $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        } else {
+            return null;
+        }
+}
 
     public function addOrder() {
         $query = "INSERT INTO orders SET customerID=:customerID, payment=:payment";

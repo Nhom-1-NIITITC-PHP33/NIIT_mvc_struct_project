@@ -154,20 +154,25 @@
                                 <i class="glyphicon glyphicon-list-alt" style="padding-right: 2%;"></i>
                                 Bộ lọc sản phẩm 
                             </div><br>
-                            <p style="color: #1B6D85;">Lọc theo giá sản phẩm:</p>
-                            <select name="" id="" onchange="showProduct(this.value);" class="form-control">
-                                <option value="">--- Chọn khoảng giá --- </option>
-                                <option value="">Dưới 3 triệu</option>
-                                <option value="">3 -> 5 triệu</option>
-                                <option value="">trên 5 triệu</option>
-                            </select><br>
-                            <p style="color: #1B6D85;">Lọc theo Kích thước màn hình:</p>
-                            <select name="" id="" onchange="showProduct(this.value);" class="form-control">
-                                <option value="">--- Chọn kích thước màn hình --- </option>
-                                <option value="">Dưới 4 inch</option>
-                                <option value="">từ 4->5 inch</option>
-                                <option value="">trên 5 inch</option>
-                            </select><br>
+                            <span>Lọc màu sắc </span>
+                            <div class="dropdown" class="">
+                                <select class="form-control" name="" id="cbCategory" onchange="searchColor(this.value);">
+                                    <option value="">--- Chọn màu sắc --- </option>
+                                    <option value="Đỏ">Đỏ</option>
+                                    <option value="Xám">Xám</option>
+                                    <option value="Xanh">Xanh</option>
+                                </select>
+                            </div>
+                            <span>Lọc màu sắc </span>
+                            <div class="dropdown" class="">
+                                <select class="form-control" name="" id="cbCategory" onchange="searchPrice(this.value);">
+                                    <option value="">--- Chọn khoảng giá --- </option>
+                                    <option value="1">Dưới 5 triệu</option>
+                                    <option value="2">Từ 5-10 triệu</option>
+                                    <option value="3">Từ 10-20 triệu</option>
+                                    <option value="4">Trên 20 triệu</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>

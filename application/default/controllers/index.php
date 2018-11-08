@@ -24,6 +24,27 @@ class Default_Controllers_Index extends Libs_Controller {
         $this->view->render('index/index');
     }
 
+    public function search() {
+
+        $productName = isset($_REQUEST['txtSearch']) ? $_REQUEST ['txtSearch'] : "";
+
+        $sql = " SELECT * FROM products WHERE productName LIKE '$productName%'";
+        $sqlcolor = " SELECT DISTINCT color FROM products WHERE productName LIKE '$productName%'";
+
+
+
+        $database = new Libs_Model();
+        $db = $database->getConnection();
+
+        //Khởi tạo model 'product'
+        $product = new Default_Models_Product($db);
+
+        $this->view->proData = $product->searchProduct($sql);
+        $this->view->dataColor = $product->searchProduct($sqlcolor);
+        //$product->productName= $name;
+        $this->view->render('index/search');
+    }
+
     public function detail() {
         $database = new Libs_Model;
         $db = $database->getConnection();
@@ -51,10 +72,10 @@ class Default_Controllers_Index extends Libs_Controller {
             $db = $database->getConnection();
             $product = new Default_Models_Product($db);
             $product->categoryID = $id;
-            
+
             $category = new Default_Models_Category($db);
             $category->categoryID = $id;
-            if ($product->getAllProductByCategoryID() != NULL&&$category->getCategoryByID()!=NULL) {
+            if ($product->getAllProductByCategoryID() != NULL && $category->getCategoryByID() != NULL) {
                 $this->view->nameCategory = $category->getCategoryByID();
                 $this->view->categoryGroup = $product->getAllProductByCategoryID();
                 $this->view->render('index/categoryPage');

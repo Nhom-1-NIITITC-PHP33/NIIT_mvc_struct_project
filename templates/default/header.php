@@ -48,25 +48,19 @@ $infoCustomer = $customer->getInforCustomer();
             <div class="col-xs-6  col-sm-6">
                 <div class="container-fluid">
                     <div class="row" id="search">
-                        <div class="col-sm-8" style="padding-right: 1px;">
-                            <input type="search" name="txtSearch" id="txtSearch" placeholder="Bạn cần tìm gì?">
-                        </div>
-                        <div class="col-sm-3" style="padding: 0px;">
-                            <div id="select-box">
-                                <select name="categoryId">
-                                    <option value="" selected>Iphone</option>
-                                    <option value="SamSung">SamSung</option>
-                                    <option value="Sony">Sony</option>
-                                    <option value="Xiaomi">Xiaomi</option>
-                                    <option value="Nokia">Nokia</option>
-                                </select>
+                        <form action="<?php echo URL_BASE;?>index/search" method ="get" id="search1">
+                        
+                            <div class="col-sm-9" style="padding-right: 1px;">
+                                <input type="search" name="txtSearch" id="txtSearch" placeholder="Bạn cần tìm gì?">
                             </div>
-                        </div>
-                        <div class="col-sm-1" style="padding: 0px;">
-                            <button type="button" id="btnSearch">
-                                <span class="glyphicon glyphicon-search"></span>
-                            </button>
-                        </div>
+                            
+                            <div class="col-sm-3" style="padding: 0px;">
+                                <button type="submit" id="btnSearch">
+                                    <span class="glyphicon glyphicon-search" ></span>
+                                </button>
+                            </div>
+                        
+                        </form>
                     </div>
                 </div>
             </div>

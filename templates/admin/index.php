@@ -16,12 +16,9 @@
         <title>DashBoard</title>
     </head>
     <body>
-        <?php 
-        if ($_SESSION['logged_in'] == 'admin')
-        require 'templates/admin/header.php'; ?>
+        <?php require 'templates/admin/header.php'; ?>
         <div class="content">
             <div class="row">
-                <?php if ($_SESSION['logged_in'] == 'admin') { ?>
                 <div class="col-sm-3 menu">
                     <ul>
                         <li><a href="<?php echo URL_BASE; ?>admin">Quản lý sản phẩm</a></li>
@@ -30,9 +27,6 @@
                         <li><a href="#">Quản lý người dùng</a></li>
                     </ul>
                 </div>
-                <?php } ?>
-                
-                
                 <div class="col-sm-9 right-content">
                     <?php
                     require TEMPLATE;

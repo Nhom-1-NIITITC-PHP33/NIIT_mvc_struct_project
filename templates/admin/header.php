@@ -29,7 +29,7 @@
                         <div class="dropdown-user">
                             <a href="#">Admin</a>
                             <a href="#">Cài đặt</a>
-                            <a href="<?php echo URL_BASE . 'admin/employee/logoutProcess' ?>">Đăng xuất</a>
+                            <a href="logout.php">Đăng xuất</a>
                         </div>
                     </div>
                 </div>

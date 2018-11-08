@@ -34,24 +34,23 @@ class Default_Controllers_Order extends Libs_Controller {
         $customer->email = $_SESSION['email'];
 
         $objCus = $customer->getInforCustomer();
-
         $order->customerID = $objCus['customerID'];
+
+        $objOrder = $order->getInforOrderByCustomerID();
         $order->payment = $_POST['thanhtoan'];
         $payment = $_POST['thanhtoan'];
 
         $orderDetail = new Default_Models_OrderDetail($db);
 
-        foreach ($_SESSION["cart_item"] as $item) {
-            $orderDetail->orderID=1;
-            $orderDetail->productID = $item['id'];
-            $orderDetail->quantity = $item["quantity"];
-            $orderDetail->price = $item["price"] * $item["quantity"];
-        }
-
-
         if ($payment != "") {
             $order->addOrder();
-            $orderDetail->addOrderDetail();
+            foreach ($_SESSION["cart_item"] as $item) {
+                $orderDetail->orderID = $objOrder['orderID'];
+                $orderDetail->productID = $item['id'];
+                $orderDetail->quantity = $item["quantity"];
+                $orderDetail->price = $item["price"] * $item["quantity"];
+                $orderDetail->addOrderDetail();
+            }
             unset($_SESSION["cart_item"]);
             echo "<script>window.location.href='" . URL_BASE . "order';alert('Bạn đã mua hàng thành công');</script>";
         } else {
