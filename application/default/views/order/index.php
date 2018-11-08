@@ -7,57 +7,72 @@
 
     </div>
     <div class="container">
-        <h3>Nhập thông tin khách hàng</h3>
-        <div class="info-order">
-            <form action="#" method="post" name="RegisterForm" onsubmit="return checkValid()">
+        <?php
+        if(isset($_SESSION['email'])){
+        ?>
+        <h3>Thông tin khách hàng</h3>
+            <form action="<?php echo URL_BASE ?>order/formOrder" method="post" enctype="multipart/form-data" onsubmit="return checkValid()">
+                <div class="info-order">
                 <label> Họ và tên </label><span class="msg" id="msgUser">(*)</span>
-                <input type="text" name="txtUser" placeholder="  Mời bạn nhập tên" id="txtUser" class="form-control"/><br>
+                <input type="text" name="txtUser" placeholder="Mời bạn nhập tên" id="txtUser" class="form-control" value="<?php echo $this->infoCustomer['fullName']; ?>" disabled/><br>
                 <label> Địa chỉ</label> <span class="msg" id="msgAddr">(*)</span>
-                <input type="text" name="txtAddr" placeholder="  Mời bạn nhập địa chỉ" id="txtAddr" class="form-control"/><br>
+                <input type="text" name="txtAddr" placeholder="  Mời bạn nhập địa chỉ" id="txtAddr" class="form-control" value="<?php echo $this->infoCustomer['address']; ?>" disabled/><br>
                 <label> Điện thoại</label> <span class="msg" id="msgMobile">(*)</span>
-                <input type="text" name="txtMobile" placeholder="  Mời bạn nhập số điện thoại" id="txtMobile" class="form-control"/><br>
+                <input type="text" name="txtMobile" placeholder="  Mời bạn nhập số điện thoại" id="txtMobile" class="form-control" value="<?php echo $this->infoCustomer['phone']; ?>" disabled/><br>
                 <label> Email</label><span class="msg" id="msgEmail">(*)</span>
-                <input type="text" name="txtEmail" placeholder="  Mời bạn nhập email" id="txtEmail"/ class="form-control"><br>                         
+                <input type="text" name="txtEmail" placeholder="  Mời bạn nhập email" id="txtEmail" class="form-control" value="<?php echo $this->infoCustomer['email']; ?>" disabled> <br>                         
                 </div>
                 <div class="container hello">
                     <span class="glyphicon glyphicon-info-sign" style="color:#7094db;margin-right: 10px;"></span>Sản phẩm bạn đã chọn để mua
 
                 </div>
-                <div class="container table-cart">
-                    <table class="table table-bordered table-responsive table-condensed table-hover">
-                        <tr>
+                <?php
+                if (isset($_SESSION["cart_item"])) {
+                    $item_total = 0;
+                    ?>
+                    <div class="container table-cart">
+                        <table class="table table-bordered table-responsive table-condensed table-hover">
+                            <tr>
+                                <th>Mã Sản Phẩm</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Số lượng</th>
+                                <th>Số tiền</th>
+                            </tr>
+                            <?php
+                            foreach ($_SESSION["cart_item"] as $item) {
+                                ?>
+                                <tr>
+                                    <td>
+                                        <?php echo $item["productCode"]; ?>
+                                    </td>
+                                    <td>                                       
+                                        <?php echo "     " . $item["name"]; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $item["quantity"]; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo number_format($item["price"]*$item["quantity"]); ?>đ
+                                    </td>
 
-                            <th>Tên sản phẩm</th>
-                            <th>Số lượng</th>
-                            <th>Số tiền</th>
+                                </tr>
+                                <?php
+                                $item_total += ($item["price"] * $item["quantity"]);
+                            }
+                            ?>
 
-                        </tr>
-                        <tr>
+                            <tr>
+                                <th colspan="3">Tổng số tiền</th>
+                                <th style="color:red;"><?php echo number_format($item_total); ?>đ</th>
+                            </tr>
 
-                            <td>IphoneX</td>
-                            <td>1</td>
-                            <td>20.000.000</td>
-
-                        </tr>
-                        <tr>
-
-                            <td>IphoneX</td>
-                            <td>1</td>
-                            <td>20.000.000</td>
-
-                        </tr>
-                        <tr>                            
-                            <td>IphoneX</td>
-                            <td>1</td>
-                            <td>20.000.000</td>
-                        </tr>
-                        <tr>
-                            <th colspan="2">Tổng số tiền</th>
-                            <th style="color:red;">60.000.000</th>
-                        </tr>
-
-                    </table>
-                </div>
+                        </table>
+                    </div>
+                    <?php
+                } else {
+                    echo "<div class='alert alert-danger'>Sản phẩm trống</div>";
+                }
+                ?>
 
                 <div class="container hello">
                     <span class="glyphicon glyphicon-plane" style="color:#7094db;margin-right: 10px;"></span>Miễn Phí Vận Chuyển cho đơn hàng từ 200.000 (giảm tối đa 40.000)
@@ -65,36 +80,40 @@
                 <div class="container" style="margin-top:30px;">
                     <span style="font-size: 26px;">Hình thức thanh toán </span>
 
-                    <input type="radio" name ="thanhtoan">Thẻ tín dụng/Ghi nợ
-                    <input type="radio" name="thanhtoan">Thanh toán sau khi nhận hàng
+                    <input type="radio" name ="thanhtoan" value="Thẻ tín dụng/Ghi nợ">Thẻ tín dụng/Ghi nợ
+                    <input type="radio" name="thanhtoan" value="Thanh toán sau khi nhận hàng">Thanh toán sau khi nhận hàng
 
                 </div>
                 <div class="container order-information">
                     <table class="table table-hover table-condensed table-responsive table-bordered">
                         <tr>
                             <th>Tổng tiền hàng</th>
-                            <td>60.000.000</td>
+                            <td><?php echo number_format($item_total); ?>đ</td>
                         </tr>
                         <tr>
                             <th>Phí vận chuyển</th>
-                            <td>200.000</td>
+                            <td>200.000đ</td>
                         </tr>
                         <tr>
                             <th>Giảm giá phí vận chuyển</th>
-                            <td>- 200.000</td>
+                            <td>- 200.000đ</td>
                         </tr>
                         <tr>
                             <th>Tổng thanh toán</th>
-                            <td>60.000.000</td>
+                            <td><?php echo number_format($item_total); ?>đ</td>
                         </tr>
                     </table>
                 </div>
 
-                <input type="submit" id="btnReg" name="btnReg" value="Đặt hàng"/>
-                <a href="cart.php" class="btn" id="btnBack">Quay lại giỏ hàng</a>
+                <button type="submit" id="btnReg" name="btnReg">Đặt hàng</button>
+                <a href="<?php echo URL_BASE; ?>cart" class="btn" id="btnBack" style="margin-top: 0px;">Quay lại giỏ hàng</a>
 
             </form>
-
+            <?php
+        }else{
+            
+        }
+            ?>
         </div>
         <div class="seen-product container">
             <h2>Có thể bạn cũng thích</h2>

@@ -5,38 +5,56 @@
     <div class="container hello">
         <span class="glyphicon glyphicon-info-sign" style="color:#7094db;margin-right: 10px;"></span>Chào mừng đến với D3T.vn!
     </div>
-    <div class="container table-cart">
-        <table class="table table-bordered table-responsive table-condensed table-hover">
-            <tr>
-                <th><input type="checkbox"></th>
-                <th>Tên sản phẩm</th>
-                <th>Số lượng</th>
-                <th>Số tiền</th>
-                <th>Thao tác</th>
-            </tr>
-            <tr>
-                <td><input type="checkbox" name=""></td>
-                <td>IphoneX</td>
-                <td>1</td>
-                <td>20.000.000</td>
-                <td><a class="btn btn-danger">Xóa</a></td>
-            </tr>
-            <tr>
-                <td><input type="checkbox" name=""></td>
-                <td>IphoneX</td>
-                <td>1</td>
-                <td>20.000.000</td>
-                <td><a class="btn btn-danger">Xóa</a></td>
-            </tr>
-            <tr>
-                <td><input type="checkbox" name=""></td>
-                <td>IphoneX</td>
-                <td>1</td>
-                <td>20.000.000</td>
-                <td><a class="btn btn-danger">Xóa</a></td>
-            </tr>
-        </table>
-    </div>
+    <?php
+    if (isset($_SESSION["cart_item"])) {
+        $item_total = 0;
+        ?>
+        <div class="container table-cart">
+            <table class="table table-bordered table-responsive table-condensed table-hover">
+                <tr>
+                    <th>Mã sản phẩm</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Số lượng</th>
+                    <th>Số tiền</th>
+                    <th>Thao tác</th>
+                </tr>
+                <?php
+                foreach ($_SESSION["cart_item"] as $item) {
+                    ?>
+                    <tr>                        
+                        <td><?php echo $item["productCode"]; ?></td>
+                        <td>
+                            <a href="<?php echo URL_BASE; ?>detail?id=<?php echo $item["id"]; ?>">                                
+                                <div class="product_base">
+                                    <div class="price_current">
+                                        <?php echo "     " . $item["name"]; ?>
+                                    </div>
+                                </div>
+                                <img src="<?php echo URL_BASE; ?>templates/default/image/<?php echo $item["image"]; ?>" alt="" />
+                            </a>
+                        </td>
+                        <td>
+
+                            <input id="<?php echo $item["productCode"]; ?>" type="number" name="quantity" min="1" max="<?php echo $item["quantityMax"]; ?>" value="<?php echo $item["quantity"]; ?>" style="text-align: center;" onBlur="saveCart(this,<?php echo $item["productCode"]; ?>);"/> 
+                        </td>
+                        <td><span id="price<?php echo $item["productCode"] ?>"><?php echo number_format($item["price"] * $item["quantity"]); ?>đ</span></td>
+                        <td><a class="btn btn-danger" href="<?php echo URL_BASE ?>cart/deleteCart?id=<?php echo $item["productCode"]; ?>"><i class="fa fa-trash w3-xxlarge"></i><?php echo " Xóa"; ?></a></td>
+                    </tr>
+                    <?php
+                    $total_price += ($item["price"] * $item["quantity"]);
+                }
+                ?>
+                    <tr>
+                        <td colspan="4"></td>
+                        <td><a class="btn btn-danger" href="<?php echo URL_BASE ?>cart/deleteAllCart"><i class="fa fa-trash w3-xxlarge"></i><?php echo " Xóa Tất Cả"; ?></a></td>
+                    </tr>
+            </table>
+        </div>
+        <?php
+    } else {
+        echo "<br><div class='alert alert-danger'>Giỏ hàng trống</div>";
+    }
+    ?>
 
     <div class="container hello">
         <span class="glyphicon glyphicon-plane" style="color:#7094db;margin-right: 10px;"></span>Miễn Phí Vận Chuyển cho đơn hàng từ 200.000 (giảm tối đa 40.000)
@@ -44,58 +62,50 @@
     <div class="container">
         <table class="table table-hover table-condensed table-responsive table-bordered info-cart">
             <tr>
-                <td><h2>Chọn tất cả</h2></td>
-                <td style="color: blue;"><h2>Tổng tiền hàng (3 sản phẩm): 60.000.000</h2></td>
+                <td><h2>Tổng tiền hàng (<?php echo count($_SESSION["cart_item"]); ?> sản phẩm):</h2></td>
+                <td style="color: blue;"><h2 id="total_price"><?php echo number_format($total_price); ?>đ</span></h2></td>
             </tr>
             <tr>
-                <td>3 Sản phẩm</td>
-                <td><a href="<?php echo URL_BASE;?>order/index" class="btn btn-success">Mua ngay</a>
-                    <a href="index" class="btn btn-info">Tiếp tục mua</a>
+                
+                <td colspan="2" style="text-align: center;"><a href="<?php echo URL_BASE; ?>order/index" class="btn btn-success">Mua ngay</a>
+                    <a href="<?php echo URL_BASE; ?>" class="btn btn-info">Tiếp tục mua</a>
                 </td>
 
             </tr>
         </table>
     </div>
 </div>
+<script>
+    function getQuantity(val)
+    {
+        var qty = $(val).val();
+        var price = $("#price").text();
+        var price = qty * price;
+        $("#price").html(price);
+        return false;
+
+
+    }
+
+</script>
 <div class="seen-product container">
     <h2>Có thể bạn cũng thích</h2>
     <div class="owl-carousel owl-theme owl-loaded owl-drag">
-        <div class="item"><h4> 
-                <img src="<?php echo URL_BASE; ?>templates/default/image/cr1.PNG" alt=""/>
-            </h4></div>
-        <div class="item"><h4>
-                <img src="<?php echo URL_BASE; ?>templates/default/image/cr2.PNG" alt=""/>
-            </h4></div>
-        <div class="item"><h4>
-                <img src="<?php echo URL_BASE; ?>templates/default/image/cr3.PNG" alt=""/>
-            </h4></div>
-        <div class="item"><h4>
-                <img src="<?php echo URL_BASE; ?>templates/default/image/cr4.PNG" alt=""/>
-            </h4></div>
-        <div class="item"><h4>
-                <img src="<?php echo URL_BASE; ?>templates/default/image/cr5.PNG" alt=""/>
-            </h4></div>
-        <div class="item"><h4>
-                <img src="<?php echo URL_BASE; ?>templates/default/image/cr6.PNG" alt=""/>
-            </h4></div>
-        <div class="item"><h4>
-                <img src="<?php echo URL_BASE; ?>templates/default/image/cr7.PNG" alt=""/>
-            </h4></div>
-        <div class="item"><h4>
-                <img src="<?php echo URL_BASE; ?>templates/default/image/cr8.PNG" alt=""/>
-            </h4></div>
-        <div class="item"><h4>
-                <img src="<?php echo URL_BASE; ?>templates/default/image/cr9.PNG" alt=""/>
-            </h4></div>
-        <div class="item"><h4>
-                <img src="<?php echo URL_BASE; ?>templates/default/image/cr10.PNG" alt=""/>
-            </h4></div>
-        <div class="item"><h4>
-                <img src="<?php echo URL_BASE; ?>templates/default/image/cr11.PNG" alt=""/>
-            </h4></div>
-        <div class="item"><h4>
-                <img src="<?php echo URL_BASE; ?>templates/default/image/cr12.PNG" alt=""/>
-            </h4></div>
+        <?php
+        while ($newRow = $this->newData->fetch(PDO::FETCH_ASSOC)) {
+            extract($newRow);
+            ?>
+
+            <div class="item">
+                <h4> 
+                    <a href="<?php echo URL_BASE . 'index/detail?id=' . $productID; ?>">
+                        <img src="<?php echo URL_BASE; ?>templates/default/image/<?php echo $image; ?>" alt=""/>
+                    </a>
+                </h4>
+            </div>
+            <?php
+        }
+        ?>
     </div>
     <script>
         var owl = $('.owl-carousel');

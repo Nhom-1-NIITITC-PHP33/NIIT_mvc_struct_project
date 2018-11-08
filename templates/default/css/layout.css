@@ -11,14 +11,40 @@
     line-height: 30px;  
 
 }
-.list{
-    text-align: center;
+.list-left{
+    text-align: left;
     text-decoration: none;
     color: #ffffff;
 }
-.list>a{
+.list-left>a{
     text-decoration: none;
     color: #ffffff; 
+}
+.list-left>a:hover{
+    color: #ff0; 
+}
+.list-right>a:hover{
+    color: #ff0; 
+}
+
+
+.list-right{
+    text-align: right;
+    text-decoration: none;
+    color: #ffffff;
+}
+.list-right>a{
+    text-decoration: none;
+    color: #ffffff; 
+}
+@media only screen and (max-width: 600px) {
+    .list-left{
+        text-align: center;        
+    }
+    .list-right{
+        text-align: center;       
+    }
+
 }
 #header{
     vertical-align: baseline;
@@ -63,7 +89,7 @@
     text-align: right;
 }
 #cart button{
-    border-color:#e4101c;
+    border-color:#1b6d85;
 }
 .btn .badge {
     top:-11px;
@@ -157,7 +183,7 @@ nav{
     border: 1px solid gainsboro;
     padding-top: 10px;
     padding-bottom: 5px;
-    height: 296px;
+    height: 325px;
     margin-bottom: 10px;
 }
 .item-product:hover{
@@ -210,10 +236,10 @@ nav{
 }
 
 #menu-right{
-    border: 1px solid gainsboro;
+    padding: 10px;
     position: relative;
-    right: -15px;
-    padding: 0px;
+    right: 0px;
+    left: 0px;
     border-top: 2px solid #e4101c
 }
 .menu-right-header{
@@ -545,6 +571,199 @@ input, button, textarea, select, optgroup, option {
 .panel-content a:hover{
     color: #3e8f3e;
 }
+.text-primary{
+    display:inline !important;
+}
+
+
+/*footer*/
+.footer-distributed{
+	background-color: #1B6D85;
+	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+	box-sizing: border-box;
+	width: 100%;
+	text-align: left;
+	font: bold 16px sans-serif;
+
+	padding: 55px 50px;
+	margin-top: 80px;
+}
+
+.footer-distributed .footer-left,
+.footer-distributed .footer-center,
+.footer-distributed .footer-right{
+	display: inline-block;
+	vertical-align: top;
+}
+
+/* Footer left */
+
+.footer-distributed .footer-left{
+	width: 40%;
+}
+
+/* The company logo */
+
+.footer-distributed h3{
+	color:  #ffffff;
+	font: normal 36px 'Cookie', cursive;
+	margin: 0;
+}
+
+.footer-distributed h3 span{
+	color:  #5383d3;
+}
+
+/* Footer links */
+
+.footer-distributed .footer-links{
+	color:  #ffffff;
+	margin: 20px 0 12px;
+	padding: 0;
+}
+
+.footer-distributed .footer-links a{
+	display:inline-block;
+	line-height: 1.8;
+	text-decoration: none;
+	color:  inherit;
+}
+
+.footer-distributed .footer-company-name{
+	color:  #8f9296;
+	font-size: 14px;
+	font-weight: normal;
+	margin: 0;
+}
+
+/* Footer Center */
+
+.footer-distributed .footer-center{
+	width: 35%;
+}
+
+.footer-distributed .footer-center i{
+	background-color:  #33383b;
+	color: #ffffff;
+	font-size: 25px;
+	width: 38px;
+	height: 38px;
+	border-radius: 50%;
+	text-align: center;
+	line-height: 42px;
+	margin: 10px 15px;
+	vertical-align: middle;
+}
+
+.footer-distributed .footer-center i.fa-envelope{
+	font-size: 17px;
+	line-height: 38px;
+}
+
+.footer-distributed .footer-center p{
+	display: inline-block;
+	color: #ffffff;
+	vertical-align: middle;
+	margin:0;
+}
+
+.footer-distributed .footer-center p span{
+	display:block;
+	font-weight: normal;
+	font-size:14px;
+	line-height:2;
+}
+
+.footer-distributed .footer-center p a{
+	color:  #5383d3;
+	text-decoration: none;;
+}
+
+
+/* Footer Right */
+
+.footer-distributed .footer-right{
+	width: 20%;
+}
+
+.footer-distributed .footer-company-about{
+	line-height: 20px;
+	color:  #92999f;
+	font-size: 13px;
+	font-weight: normal;
+	margin: 0;
+}
+
+.footer-distributed .footer-company-about span{
+	display: block;
+	color:  #ffffff;
+	font-size: 14px;
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+
+.footer-distributed .footer-icons{
+	margin-top: 25px;
+}
+
+.footer-distributed .footer-icons a{
+	display: inline-block;
+	width: 35px;
+	height: 35px;
+	cursor: pointer;
+	background-color:  #33383b;
+	border-radius: 2px;
+
+	font-size: 20px;
+	color: #ffffff;
+	text-align: center;
+	line-height: 35px;
+
+	margin-right: 3px;
+	margin-bottom: 5px;
+}
+
+/* If you don't want the footer to be responsive, remove these media queries */
+
+@media (max-width: 880px) {
+
+	.footer-distributed{
+		font: bold 14px sans-serif;
+	}
+
+	.footer-distributed .footer-left,
+	.footer-distributed .footer-center,
+	.footer-distributed .footer-right{
+		display: block;
+		width: 100%;
+		margin-bottom: 40px;
+		text-align: center;
+	}
+
+	.footer-distributed .footer-center i{
+		margin-left: 0;
+	}
+
+}
+.muangay{
+    width: 60%;
+    background: #ff3333;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
+.muangay:hover{
+    background:#ff8080;
+}
+.muangay a{
+    color:white;
+    text-align: center;
+    font-weight: bold;
+}
+.muangay a:hover{
+    color:white;
+}
 .login_center{
     display: inline;
 }
@@ -559,7 +778,5 @@ input, button, textarea, select, optgroup, option {
 }
 .login_div span{
     color: red; 
-    float: right;
+    float: right
 }
-
-/*detail*/
