@@ -7,6 +7,9 @@ class Admin_Controllers_Index extends Libs_Controller {
     }
 
     public function index() {
+        if ($_SESSION['logged_in'] != 'admin'){
+            $this->view->render('user/login');
+        } else {
         $database = new Libs_Model();
         $db = $database->getConnection();
 
@@ -21,6 +24,7 @@ class Admin_Controllers_Index extends Libs_Controller {
 
 
         $this->view->render('index/index');
+        }
     }
 
     public function detail() {
