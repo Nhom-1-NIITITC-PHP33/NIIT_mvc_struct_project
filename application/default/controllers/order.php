@@ -7,11 +7,58 @@ class Default_Controllers_Order extends Libs_Controller {
         //Đã có thuộc tính view của cha
     }
 
+    public function number_unformat($number) {
+        $x = preg_replace('/,/', "", $number);
+        return rtrim($x, "đ");
+    }
+
     public function index() {
+        $database = new Libs_Model();
+        $db = $database->getConnection();
+
+        $customer = new Default_Models_Customer($db);
+        $customer->email = $_SESSION['email'];
+
+        $this->view->infoCustomer = $customer->getInforCustomer();
 
         $this->view->render('order/index');
     }
-   
+
+    public function formOrder() {
+        $database = new Libs_Model();
+        $db = $database->getConnection();
+        $order = new Default_Models_Order($db);
+
+        //Lấy customerID từ bảng customer để thêm vào bảng order
+        $customer = new Default_Models_Customer($db);
+        $customer->email = $_SESSION['email'];
+
+        $objCus = $customer->getInforCustomer();
+
+        $order->customerID = $objCus['customerID'];
+        $order->payment = $_POST['thanhtoan'];
+        $payment = $_POST['thanhtoan'];
+
+        $orderDetail = new Default_Models_OrderDetail($db);
+
+        foreach ($_SESSION["cart_item"] as $item) {
+            $orderDetail->orderID=1;
+            $orderDetail->productID = $item['id'];
+            $orderDetail->quantity = $item["quantity"];
+            $orderDetail->price = $item["price"] * $item["quantity"];
+        }
+
+
+        if ($payment != "") {
+            $order->addOrder();
+            $orderDetail->addOrderDetail();
+            unset($_SESSION["cart_item"]);
+            echo "<script>window.location.href='" . URL_BASE . "order';alert('Bạn đã mua hàng thành công');</script>";
+        } else {
+            echo "<script>window.location.href='" . URL_BASE . "order';alert('Bạn chưa nhập hình thức thanh toán');</script>";
+        }
+    }
+
 }
 
 ?>

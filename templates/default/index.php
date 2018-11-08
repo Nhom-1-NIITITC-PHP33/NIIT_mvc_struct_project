@@ -9,6 +9,7 @@
         <script src="<?php echo URL_BASE; ?>templates/default/js/jquery-3.3.1.min.js" type="text/javascript"></script>
         <link href="<?php echo URL_BASE; ?>templates/default/css/bootstrap-theme.css" rel="stylesheet" type="text/css"/>
         <link href="<?php echo URL_BASE; ?>templates/default/css/layout.css" rel="stylesheet" type="text/css"/>
+        <link href="<?php echo URL_BASE; ?>templates/default/css/style.css" rel="stylesheet" type="text/css"/>
         <link rel="icon" href="favicon.png">
         <link href="<?php echo URL_BASE; ?>templates/default/css/effect.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" type="text/css" href="<?php echo URL_BASE; ?>templates/default/css/order.css">
@@ -68,15 +69,83 @@
                     $("#search").show();
                 }
             });
+            //Chức năng thêm vào giỏ hàng và lọc sản phẩm
+            function showProduct() {
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        document.getElementById("result").innerHTML = this.responseText;
+                    }
+                };
 
+                xmlhttp.open("GET", "<?php echo URL_BASE; ?>show", true);
+                xmlhttp.send();
+
+            }
+            function getbycategory(catid) {
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        document.getElementById("result").innerHTML = this.responseText;
+                    }
+                };
+
+                xmlhttp.open("GET", "<?php echo URL_BASE; ?>getbycategory?id=" + catid, true);
+                xmlhttp.send();
+            }
+            function livesale1(id) {
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        document.getElementById("messageCart").innerHTML = this.responseText;
+                    }
+                };
+
+                xmlhttp.open("GET", "<?php echo URL_BASE; ?>cart/addToCartFromIndex?id=" + id, true);
+                xmlhttp.send();
+            }
+            function livesale2(id) {
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        document.getElementById("messageCart").innerHTML = this.responseText;
+                    }
+                };
+
+                xmlhttp.open("GET",<?php echo count($_SESSION['cart_item']); ?>, true);
+                xmlhttp.send();
+            }
+            //Kết thúc chức năng thêm vào giỏ hàng và lọc sản phẩm
+
+            function showCart() {
+                document.getElementById("messageCart").innerHTML = <?php echo count($_SESSION['cart_item']); ?>;
+
+
+            }
+
+            function saveCart(obj) {
+                var quantity = $(obj).val();
+                var code = $(obj).attr("id");
+                $.ajax({
+                    url: "<?php echo URL_BASE; ?>cart/editQuantity",
+                    type: "POST",
+                    data: 'code=' + code + '&quantity=' + quantity,
+                    success: function (data, status) {
+                        $("#total_price").html(data)
+                    },
+                    error: function () {
+                        alert("Problen in sending reply!")
+                    }
+                });
+            }
         </script>
     </head>
-    <body>
+    <body onload="showCart();">
 
         <?php require 'templates/default/header.php'; ?>
-        <?php
-        require TEMPLATE;
-        ?>
-        <?php require 'templates/default/footer.php'; ?>
+<?php
+require TEMPLATE;
+?>
+<?php require 'templates/default/footer.php'; ?>
     </body>
 </html>
